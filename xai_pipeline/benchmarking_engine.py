@@ -885,7 +885,6 @@ def _compute_explainer(
             model,
             X_eval,
             feature_names,
-            random_state=random_state,
             baseline=ig_baseline_vec,
         )
   
