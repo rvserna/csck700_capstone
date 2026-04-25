@@ -1,0 +1,2 @@
+n_patients,n_admissions,n_icu_stays,mortality_rate_pct,mean_diagnoses_per_admission,mean_procedures_per_admission
+46520,58976,61532,9.93,11.04,11.04

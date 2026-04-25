@@ -1,0 +1,14 @@
+feature_name,source_table,itemid,row_count,available
+bilirubin_max,LABEVENTS,50885,238263,True
+creatinine_max,LABEVENTS,50912,797389,True
+glucose_max,LABEVENTS,50931,748896,True
+heart_rate_mean,CHARTEVENTS,211,5180809,True
+mean_bp,CHARTEVENTS,456,1553537,True
+platelet_min,LABEVENTS,51265,778365,True
+resp_rate_mean,CHARTEVENTS,618,3386719,True
+spo2_min,CHARTEVENTS,646,3418917,True
+temp_max,CHARTEVENTS,678,773891,True
+temp_max,CHARTEVENTS,223761,522143,True
+ventilator_event_count,CHARTEVENTS,720,420719,True
+ventilator_event_count,CHARTEVENTS,721,80002,True
+wbc_max,LABEVENTS,51300,2371,True

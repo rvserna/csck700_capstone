@@ -1,0 +1,11 @@
+{
+  "n_patients": 46520,
+  "n_admissions": 58976,
+  "n_icu_stays": 61532,
+  "admissions_missing_patient": 0,
+  "icu_missing_admission": 0,
+  "diagnosis_missing_admission": 0,
+  "procedure_missing_admission": 0,
+  "duplicate_admissions": 0,
+  "duplicate_icu_stays": 0
+}

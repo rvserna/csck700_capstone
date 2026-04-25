@@ -1,0 +1,120 @@
+{
+  "ADMISSIONS": {
+    "exists": true,
+    "path": "C:\\Users\\Robert Viens Serna\\Documents\\Capstone\\Prototype\\data\\mimic-iii\\ADMISSIONS.csv",
+    "n_rows_checked": 5000,
+    "n_cols_total": 19,
+    "n_cols_checked": 5,
+    "missing_required_columns": [],
+    "null_counts_required": {
+      "SUBJECT_ID": 0,
+      "HADM_ID": 0,
+      "ADMITTIME": 0,
+      "DISCHTIME": 0,
+      "HOSPITAL_EXPIRE_FLAG": 0
+    },
+    "repeated_rows_on_available_keys": 0,
+    "time_checks": {
+      "invalid_order_rows": 11,
+      "missing_pair_rows": 0
+    }
+  },
+  "DIAGNOSES_ICD": {
+    "exists": true,
+    "path": "C:\\Users\\Robert Viens Serna\\Documents\\Capstone\\Prototype\\data\\mimic-iii\\DIAGNOSES_ICD.csv.gz",
+    "n_rows_checked": 5000,
+    "n_cols_total": 5,
+    "n_cols_checked": 3,
+    "missing_required_columns": [],
+    "null_counts_required": {
+      "SUBJECT_ID": 0,
+      "HADM_ID": 0,
+      "ICD9_CODE": 0
+    },
+    "repeated_rows_on_available_keys": 4458
+  },
+  "ICUSTAYS": {
+    "exists": true,
+    "path": "C:\\Users\\Robert Viens Serna\\Documents\\Capstone\\Prototype\\data\\mimic-iii\\ICUSTAYS.csv",
+    "n_rows_checked": 5000,
+    "n_cols_total": 12,
+    "n_cols_checked": 5,
+    "missing_required_columns": [],
+    "null_counts_required": {
+      "SUBJECT_ID": 0,
+      "HADM_ID": 0,
+      "ICUSTAY_ID": 0,
+      "INTIME": 0,
+      "OUTTIME": 1
+    },
+    "repeated_rows_on_available_keys": 0,
+    "time_checks": {
+      "invalid_order_rows": 0,
+      "missing_pair_rows": 1
+    }
+  },
+  "LABEVENTS": {
+    "exists": true,
+    "path": "C:\\Users\\Robert Viens Serna\\Documents\\Capstone\\Prototype\\data\\mimic-iii\\LABEVENTS.csv",
+    "n_rows_checked": 5000,
+    "n_cols_total": 9,
+    "n_cols_checked": 4,
+    "missing_required_columns": [],
+    "null_counts_required": {
+      "SUBJECT_ID": 0,
+      "HADM_ID": 2712,
+      "ITEMID": 0,
+      "VALUENUM": 748
+    },
+    "repeated_rows_on_available_keys": 4987,
+    "valuenum_non_null": 4252,
+    "valuenum_negative": 44,
+    "valuenum_zero": 125
+  },
+  "PATIENTS": {
+    "exists": true,
+    "path": "C:\\Users\\Robert Viens Serna\\Documents\\Capstone\\Prototype\\data\\mimic-iii\\PATIENTS.csv",
+    "n_rows_checked": 5000,
+    "n_cols_total": 8,
+    "n_cols_checked": 3,
+    "missing_required_columns": [],
+    "null_counts_required": {
+      "SUBJECT_ID": 0,
+      "GENDER": 0,
+      "DOB": 0
+    },
+    "repeated_rows_on_available_keys": 0
+  },
+  "PROCEDURES_ICD": {
+    "exists": true,
+    "path": "C:\\Users\\Robert Viens Serna\\Documents\\Capstone\\Prototype\\data\\mimic-iii\\PROCEDURES_ICD.csv.gz",
+    "n_rows_checked": 5000,
+    "n_cols_total": 5,
+    "n_cols_checked": 3,
+    "missing_required_columns": [],
+    "null_counts_required": {
+      "SUBJECT_ID": 0,
+      "HADM_ID": 0,
+      "ICD9_CODE": 0
+    },
+    "repeated_rows_on_available_keys": 3863
+  },
+  "CHARTEVENTS": {
+    "exists": true,
+    "path": "C:\\Users\\Robert Viens Serna\\Documents\\Capstone\\Prototype\\data\\mimic-iii\\CHARTEVENTS.csv",
+    "n_rows_checked": 5000,
+    "n_cols_total": 15,
+    "n_cols_checked": 5,
+    "missing_required_columns": [],
+    "null_counts_required": {
+      "SUBJECT_ID": 0,
+      "HADM_ID": 0,
+      "ITEMID": 0,
+      "VALUENUM": 0
+    },
+    "repeated_rows_on_available_keys": 4988,
+    "valuenum_non_null": 5000,
+    "valuenum_negative": 4,
+    "valuenum_zero": 32
+  }
+}

@@ -1,0 +1,11 @@
+feature_name,source_table,itemids,n_values,below_min,above_max,min_observed,max_observed,plausible_min,plausible_max
+wbc_max,LABEVENTS,51300,2371,0,0,0.1,44.9,0.1,400.0
+creatinine_max,LABEVENTS,50912,797231,40,9,0.0,808.0,0.1,30.0
+bilirubin_max,LABEVENTS,50885,238234,0,87,0.0,82.8,0.0,60.0
+platelet_min,LABEVENTS,51265,778163,0,161,4.0,4504.0,1.0,1500.0
+glucose_max,LABEVENTS,50931,748836,129,74,0.0,3565.0,20.0,1500.0
+heart_rate_mean,CHARTEVENTS,211,5179363,1722,135,0.0,303.0,20.0,220.0
+resp_rate_mean,CHARTEVENTS,618,3384989,17729,244,0.0,130.0,4.0,80.0
+spo2_min,CHARTEVENTS,646,3415233,1232,9,0.0,110.0,30.0,100.0
+mean_bp,CHARTEVENTS,456,1550001,723,33,0.0,249.0,20.0,200.0
+temp_max,CHARTEVENTS,"223761,678",1293087,420,1291942,-99.9,9637.0,30.0,43.5

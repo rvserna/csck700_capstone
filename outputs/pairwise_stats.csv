@@ -1,0 +1,4 @@
+Comparison,Wilcoxon_stat,p_value,Rank_Biserial,Effect_size_label,p_adj_bonferroni,Significance_Label,Implication
+SHAP vs Captum_IG,162.0,1.0,0.003076923076923077,negligible,1.0,no statistically reliable difference detected,SHAP vs Captum_IG: no statistically reliable difference detected; any observed difference was negligible in magnitude and is best trated as inconclusive in this run.
+LIME vs Captum_IG,154.0,0.8325093984603882,0.052307692307692305,negligible,1.0,no statistically reliable difference detected,LIME vs Captum_IG: no statistically reliable difference detected; any observed difference was negligible in magnitude and is best trated as inconclusive in this run.
+SHAP vs LIME,157.0,0.8948604464530945,-0.033846153846153845,negligible,1.0,no statistically reliable difference detected,SHAP vs LIME: no statistically reliable difference detected; any observed difference was negligible in magnitude and is best trated as inconclusive in this run.
