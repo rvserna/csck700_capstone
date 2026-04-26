@@ -2048,7 +2048,7 @@ def write_interpretation_summary(
     lines.extend([
         "",
         "Note:",
-        "This file prvides a concise summary of benchmark "
+        "This file provides a concise summary of benchmark "
         "outputs. Detailed interpretation is presented in the "
         "interactive dashboard."
     ])
