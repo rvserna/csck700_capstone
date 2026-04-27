@@ -86,7 +86,7 @@ OUT_SUMMARY_TXT = OUT_DIR / "interpretation_summary.txt"
 OUT_RUN_CONFIG = OUT_DIR / "benchmark_run_config.json"
 
 # Store shared benchmark defaults used across module.
-# Values are reused by helper fucntions and run configuration
+# Values are reused by helper functions and run configuration
 # settings.
 RANDOM_STATE = 42
 TOP_K = 10
@@ -257,7 +257,7 @@ def paired_rank_biserial(x: np.ndarray, y: np.ndarray) -> float:
     ranks = np.empty_like(abs_diff, dtype=float)
     ranks[order] = np.arange(1, len(abs_diff) + 1, dtype=float)
 
-    # Seperate positive and negative rank mass separately so final
+    # Separate positive and negative rank mass separately so final
     # score reflects which side dominate across matched pairs.
     pos = float(ranks[diff > 0].sum())
     neg = float(ranks[diff < 0].sum())
@@ -1905,12 +1905,13 @@ def write_interpretation_summary(
         *,
         model_auc: float,
         top_k: int,
+        model_comparison_df: pd.DataFrame | None = None,
 ):
     """
     Write short summary file for current benchmark run.
 
     Highlights strongest method level results first, then
-    adds agreement and pariwise comparison values in simple text
+    adds agreement and pairwise comparison values in simple text
     format.
     """
     def best_method(
@@ -1954,6 +1955,93 @@ def write_interpretation_summary(
         # Return method corresponding to best observed value for this
         # metric so summary highlights strongest result.
         return tmp.iloc[0]["Method"]
+    
+    def best_model(
+        col: str,
+        *,
+        ascending: bool = False,
+    ):
+        """
+        Return model name with best value for given model metric.
+        """
+        # Stop early if model comparison output is unavailable so
+        # summary can degrade cleanly when model metrics are absent.
+        if model_comparison_df is None or model_comparison_df.empty:
+            return None
+        
+        # Stop early if expected metric or model label is missing so
+        # summary does not fail when export schema changes.
+        if (
+            col not in model_comparison_df.columns
+            or "Model" not in model_comparison_df.columns
+        ):
+            return None
+        
+        # Convert chosen metric to numeric form and remove missing
+        # rows before selecting best-performing model.
+        tmp = model_comparison_df[["Model", col]].copy()
+        tmp[col] = pd.to_numeric(tmp[col], errors="coerce")
+        tmp = tmp.dropna(subset=[col])
+
+        # Return early when no valid values remain so summary lines
+        # can handle missing model metrics without raising errors.
+        if tmp.empty:
+            return None
+        
+        # Sort values according to metric direction. For AUC, higher
+        # is better; for Brier score and ECE, lower is better.
+        tmp = tmp.sort_values(col, ascending=ascending)
+
+        # Return model and metric value so summary gives useful
+        # comparative context rather than only naming the model.
+        row = tmp.iloc[0]
+        return f"{row['Model']} ({row[col]:.3f})"
+    
+    def strongest_pairwise_effect():
+        """
+        Return pairwise comparison with strongest rank-biserial effect.
+        """
+        # Stop early if pairwise output is unavailable so summary can
+        # degrade cleanly when statistical comparisons are absent.
+        if pairwise_df is None or pairwise_df.empty:
+            return None
+        
+        # Stop early if expected effect size or comparison label is
+        # missing so summary does not fail when export schema changes.
+        if (
+            "Rank_Biserial" not in pairwise_df.columns
+            or "Comparison" not in pairwise_df.columns
+        ):
+            return None
+        
+        # Convert rank biserial values to numeric form and remove
+        # missing rows before selecting strongest pairwise effect.
+        tmp = pairwise_df[["Comparison", "Rank_Biserial"]].copy()
+        tmp["Rank_Biserial"] = pd.to_numeric(
+            tmp["Rank_Biserial"],
+            errors="coerce",
+        )
+        tmp = tmp.dropna(subset=["Rank_Biserial"])
+
+        # Return early when no valid effects remain so summary lines
+        # can handle missing statistical outputs without raising
+        # errors.
+        if tmp.empty:
+            return None
+        
+        # Rank effects by absolute magnitude because strongest effect
+        # depends on size of difference, not direction of difference.
+        tmp["Abs_Rank_Biserial"] = tmp["Rank_Biserial"].abs()
+
+        # Select comparison with largest absolute rank-biserial value.
+        row = tmp.sort_values(
+            "Abs_Rank_Biserial",
+            ascending=False,
+        ).iloc[0]
+
+        # Return comparison and signed effect size so direction is
+        # still visible after ranking by absolute magnitude.
+        return f"{row['Comparison']} ({row['Rank_Biserial']:.3f})"
 
     # Start with run heading, timestamp, and model context so saved
     # text file can still be understood when viewed outside dashboard.
@@ -1970,7 +2058,7 @@ def write_interpretation_summary(
         "- Model comparison context:",
         (
             "- Highest test AUC (comparative context): "
-            f"{best_method('Test_AUC')}"
+            f"{best_model('Test_AUC')}"
         ),
         "",
         "Key Quantitative Takeaways:",
@@ -1985,11 +2073,11 @@ def write_interpretation_summary(
         f"- Highest clinical alignment (Top-{top_k} overlap): "
         f"{best_method(f'Top{top_k}_Clinical_Overlap')}",
         f"- Most accurate probabilities (Brier score): "
-        f"{best_method('Test_Brier', ascending=True)}",
+        f"{best_model('Test_Brier', ascending=True)}",
         f"- Best probability calibration (ECE): "
-        f"{best_method('Test_ECE', ascending=True)}",
+        f"{best_model('Test_ECE', ascending=True)}",
         f"- Strongest effect size (rank-biserial): "
-        f"{best_method('Rank_Biserial', absolute=True)}",
+        f"{strongest_pairwise_effect()}",
         "",
         "Explainer Agreement (Global):",
     ]
@@ -2802,7 +2890,7 @@ def run_benchmark(cfg: RunConfig) -> Dict[str, Any]:
         ) 
 
     # Create DataFrame that stores original and representative
-    # perturbed attribution arrays so reporting interace can show
+    # perturbed attribution arrays so reporting interface can show
     # instance level comparisons without recomputing benchmark.
     instance_attr_df = pd.concat(
         [
@@ -2965,6 +3053,7 @@ def run_benchmark(cfg: RunConfig) -> Dict[str, Any]:
         OUT_SUMMARY_TXT, 
         model_auc=model_auc,
         top_k=int(cfg.top_k),
+        model_comparison_df=model_comparison_df,
     )
 
     # Save run configuration so exported results can be tied back
@@ -2974,7 +3063,7 @@ def run_benchmark(cfg: RunConfig) -> Dict[str, Any]:
         encoding="utf-8",
     )
 
-    # Return in-memory objects needed by reporting interace so page
+    # Return in-memory objects needed by reporting interface so page
     # can render latest run without reloading saved files first.
     return {
         "config": cfg,

@@ -1,11 +1,11 @@
 Comparative Explainability Benchmark - Summary
-Generated: 2026-04-24 16:58:13
+Generated: 2026-04-27 09:40:55
 
 Model & Task:
 - Binary classification (PyTorch MLP); permutation baseline uses ROC-AUC.
 - Observed ROC-AUC on held-out test subset: 0.905
 - Model comparison context:
-- Highest test AUC (comparative context): None
+- Highest test AUC (comparative context): Random Forest (0.935)
 
 Key Quantitative Takeaways:
 - Best noise robustness (Spearman): Captum IG
@@ -13,25 +13,25 @@ Key Quantitative Takeaways:
 - Highest fidelity vs permutation: SHAP
 - Highest fidelity vs gradient input: SHAP
 - Highest clinical alignment (Top-10 overlap): Captum IG
-- Most accurate probabilities (Brier score): None
-- Best probability calibration (ECE): None
-- Strongest effect size (rank-biserial): None
+- Most accurate probabilities (Brier score): Random Forest (0.053)
+- Best probability calibration (ECE): Random Forest (0.024)
+- Strongest effect size (rank-biserial): LIME vs Captum_IG (0.052)
 
 Explainer Agreement (Global):
-- SHAP_vs_Captum_Spearman: 0.694
+- SHAP_vs_Captum_Spearman: 0.710
 - LIME_vs_Captum_Spearman: 0.335
-- SHAP_vs_LIME_Spearman: 0.238
+- SHAP_vs_LIME_Spearman: 0.237
 - SHAP_vs_Captum_Top10_Overlap: 0.700
 - LIME_vs_Captum_Top10_Overlap: 0.400
 - SHAP_vs_LIME_Top10_Overlap: 0.400
 
 Pairwise Statistical Comparisons (Wilcoxon on normalized importances; rank-biserial effect size):
-- SHAP vs Captum_IG: p_adj=1, rank_biserial=-0.009, no statistically reliable difference detected.
+- SHAP vs Captum_IG: p_adj=1, rank_biserial=0.003, no statistically reliable difference detected.
  Implication: SHAP vs Captum_IG: no statistically reliable difference detected; any observed difference was negligible in magnitude and is best treated as inconclusive in this run.
 - LIME vs Captum_IG: p_adj=1, rank_biserial=0.052, no statistically reliable difference detected.
  Implication: LIME vs Captum_IG: no statistically reliable difference detected; any observed difference was negligible in magnitude and is best treated as inconclusive in this run.
-- SHAP vs LIME: p_adj=1, rank_biserial=-0.040, no statistically reliable difference detected.
+- SHAP vs LIME: p_adj=1, rank_biserial=-0.034, no statistically reliable difference detected.
  Implication: SHAP vs LIME: no statistically reliable difference detected; any observed difference was negligible in magnitude and is best treated as inconclusive in this run.
 
 Note:
-This file prvides a concise summary of benchmark outputs. Detailed interpretation is presented in the interactive dashboard.
+This file provides a concise summary of benchmark outputs. Detailed interpretation is presented in the interactive dashboard.

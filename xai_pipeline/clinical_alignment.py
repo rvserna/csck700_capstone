@@ -32,7 +32,7 @@ import pandas as pd
 # Clinical Reference Feature Set
 # --------------------------------------------------------------------
 # Store fixed clinical reference features in one shared set so all 
-# alignment calculations use same comparsion baseline.
+# alignment calculations use same comparison baseline.
 CLINICALLY_VALIDATED_FEATURES: Set[str] = {
     "age_at_admission",
     "icd_count",

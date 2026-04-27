@@ -70,7 +70,7 @@ METHOD_NAME_MAP ={
 }
 
 # Map each display label back to exported result-table column
-# so presentation logic can look up correct data field reliabily.
+# so presentation logic can look up correct data field reliably.
 METHOD_COLUMN_MAP = {
     "Captum IG": "Captum_IG",
     "SHAP": "SHAP",
@@ -186,7 +186,7 @@ def _normalize_method_columns(
     cols: list[str],
 ) -> pd.DataFrame:
     """
-    Normalise selceted importance columns so each column sums to one
+    Normalise seleceted importance columns so each column sums to one
     in absolute terms.
 
     Supports fairer visual comparison when different explainers
@@ -367,7 +367,7 @@ def _get_top_method_feature_frame(
     feature table and same ranking logic.
     """
     # Start from method-specific feature frame so Top-K selection
-    # is always based on shared prepration logic used elsewhere.
+    # is always based on shared preparation logic used elsewhere.
     temp, method_col = _get_method_feature_frame(row, feature_df)
     if temp.empty or method_col is None:
         return pd.DataFrame(), None
@@ -491,7 +491,7 @@ def _top_k_default() -> int:
     hard-coding same value repeatedly in interface.
     """
     # Read setting from benchmark configuration so interface default
-    # stays aligned with current engine defintion.
+    # stays aligned with current engine definition.
     return int(getattr(bench.RunConfig(), "top_k", 10))
 
 # --------------------------------------------------------------------
@@ -510,7 +510,7 @@ def _get_method_summary_df(method_df: pd.DataFrame) -> pd.DataFrame:
     # data loaded from disk.
     df = method_df.copy()
 
-    # Prefer explicity method-summary rows when export includes
+    # Prefer explicit method-summary rows when export includes
     # a RecordType field.
     if "RecordType" in df.columns:
         subset = df[
@@ -916,7 +916,7 @@ def _build_risk_flags(
                         )
                     )
 
-    # Provide explicity all-clear message when no thresholds were
+    # Provide explicit all-clear message when no thresholds were
     # triggered.
     if not flags:
         flags.append(
@@ -1831,7 +1831,7 @@ def _render_horizontal_divider() -> None:
     divider is needed.
     """
     # Insert one full-width gradient divider so adjacent dashboard
-    # blocks are seperated without repeating raw HTML in each section.
+    # blocks are separated without repeating raw HTML in each section.
     st.markdown(
         """
         <div style="
@@ -8002,10 +8002,10 @@ def _render_header() -> None:
         # expects raw bytes.
         with open(logo_path, "rb") as f:
             # Convert image to base64 so it can be embedded directly
-            # into HTML without relyng on seperate static file route.
+            # into HTML without relyng on separate static file route.
             logo_base64 = base64.b64encode(f.read()).decode()
 
-        # Build logo container seperately so it can be inserted into
+        # Build logo container separately so it can be inserted into
         # main header block only when logo is available.
         logo_html = f"""
 <div class="logo-container">
@@ -8021,10 +8021,11 @@ def _render_header() -> None:
 <div class="main-title">Healthcare XAI Benchmarking Dashboard</div>
 <div class="header-divider"></div>
 <div class="intro-text">
-This dashboard presents an interactive comparison of two explainable
-AI (XAI) methods (SHAP and LIME) on MIMIC-III clinical data,
-evaluating stability, fidelity, and clinical alignment. Captum 
-(Integrated Gradients) is included as a baseline for reference.
+This dashboard presents an interactive comparison of three explainable
+AI (XAI) methods on MIMIC-III clinical data, including SHAP, LIME, and
+Captum Integrated Gradients as the baseline reference method. The
+methods are evaluated across stability, fidelity, and clinical
+alignment. 
 <br><br>
 Robert Viens Serna, MSc in Data Science and Artificial 
 Intelligence<br>
@@ -8055,7 +8056,7 @@ def _build_sidebar_config() -> tuple[Any, bool]:
     # individual controls are shown.
     st.sidebar.title("Settings")
 
-    # Insert divider below heading to seperate title from first
+    # Insert divider below heading to separate title from first
     # group of controls.
     st.sidebar.markdown("<hr>", unsafe_allow_html=True)
 
@@ -8123,7 +8124,7 @@ def _build_sidebar_config() -> tuple[Any, bool]:
             value=str(cfg_values["parquet_path"])
         )
     
-    # Seperate file-path field from next group of run controls.
+    # Separate file-path field from next group of run controls.
     st.sidebar.markdown("<hr>", unsafe_allow_html=True)
 
     # Expose test split as slider when configuration includes that
@@ -8533,7 +8534,7 @@ def main() -> None:
     # ----------------------------------------------------------------
     # 1. Model Context
     # ----------------------------------------------------------------
-    # Start with model-level context because later explanation reults
+    # Start with model-level context because later explanation results
     # are easier to read once baseline predictive performance is
     # visible.
     _section_header("1. Model Context")

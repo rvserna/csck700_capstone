@@ -46,7 +46,7 @@ class ShapModelWrapper(torch.nn.Module):
 
     def forward(self, x):
         """
-        Run wrapped model and return output shape compatibile with
+        Run wrapped model and return output shape compatible with
         SHAP.
         """
         # Run original model first so wrapper preserves same
