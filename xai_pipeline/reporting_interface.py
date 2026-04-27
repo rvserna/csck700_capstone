@@ -8779,23 +8779,33 @@ def main() -> None:
     # and then download generated outputs.
     _section_header("Download Outputs")
 
-    # Build short text summary for export using key values already
-    # shown in dashboard.
-    summary_text = []
-    summary_text.append(f"Model ROC-AUC: {model_auc:.3f}")
+    # Reuse the detailed interpretation summary written by
+    # benchmarking_engine.py. Fallback path supports cases where
+    # interface is opened before new benchmark summary is written.
+    summary_path = getattr(
+        bench,
+        "OUT_SUMMARY_TXT",
+        Path("outputs") / "interpretation_summary.txt",
+    )
 
-    # Only add recommended method line when reliability table contains
-    # at least one row.
-    if not rel_df.empty:
-        best = rel_df.iloc[0]
-        summary_text.append(
-            f"Recommended Method: {best['Method']} "
-            f"({best['Reliability_Score']:.3f})"
-        )
-    
-    # Convert text and configuration objects to bytes because download
-    # helpers expect byte-like content.
-    summary_bytes = "\n".join(summary_text).encode("utf-8")
+    if Path(summary_path).exists():
+        summary_bytes = Path(summary_path).read_bytes()
+    else:
+        # Fall back to minimal summary only if the detailed benchmark
+        # summary is unavailable.
+        summary_text = [
+            f"Model ROC-AUC: {model_auc:.3f}",
+        ]
+
+        if not rel_df.empty:
+            best = rel_df.iloc[0]
+            summary_text.append(
+                f"Recommended Method: {best['Method']} "
+                f"({best['Reliability_Score']:.3f})"
+            )
+        
+        summary_bytes = "\n".join(summary_text).encode("utf-8")
+
     config_bytes = (
         json.dumps(asdict(cfg), indent=2).encode("utf-8")
         if is_dataclass(cfg)
